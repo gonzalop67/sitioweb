@@ -30,7 +30,24 @@
 </div>
 
 <div class="col-md-7">
-    Tabla de libros ( mostrar los datos de los libros )
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Imagen</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>2</td>
+                <td>Aprende PHP</td>
+                <td>imagen.jpg</td>
+                <td>Seleccionar | Borrar</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 
 <?php include("../template/pie.php"); ?>
