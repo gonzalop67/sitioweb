@@ -18,7 +18,17 @@ switch ($accion) {
         break;
 
     case 'Modificar':
-        echo "Presionado botón Modificar";
+        $sentenciaSQL = $conexion->prepare("UPDATE libros SET nombre = :nombre WHERE id = :id");
+        $sentenciaSQL->bindParam(':id', $txtID);
+        $sentenciaSQL->bindParam(':nombre', $txtNombre);
+        $sentenciaSQL->execute();
+
+        if ($txtImagen != "") {
+            $sentenciaSQL = $conexion->prepare("UPDATE libros SET imagen = :imagen WHERE id = :id");
+            $sentenciaSQL->bindParam(':id', $txtID);
+            $sentenciaSQL->bindParam(':imagen', $txtImagen);
+            $sentenciaSQL->execute();
+        }
         break;
 
     case 'Cancelar':
