@@ -10,6 +10,7 @@ $accion = (isset($_POST['accion'])) ? $_POST['accion'] : "";
 
 switch ($accion) {
     case 'Agregar':
+        // INSERT INTO `libros` (`id`, `nombre`, `imagen`) VALUES (NULL, 'Libro de PHP', 'imagen.jpg');
         echo "Presionado botón agregar";
         break;
 
