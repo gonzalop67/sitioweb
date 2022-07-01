@@ -1,4 +1,13 @@
-<?php include("../template/cabecera.php"); ?>
+<?php 
+include("../template/cabecera.php"); 
+
+$txtID = (isset($_POST['txtID'])) ? $_POST['txtID'] : "";
+$txtNombre = (isset($_POST['txtNombre'])) ? $_POST['txtNombre'] : "";
+
+$txtImagen = (isset($_FILES['txtImagen']['name'])) ? $_FILES['txtImagen']['name'] : "";
+
+$accion = (isset($_POST['accion'])) ? $_POST['accion'] : "";
+?>
 
 <div class="col-md-5">
     <div class="card">
