@@ -8,10 +8,22 @@ $txtImagen = (isset($_FILES['txtImagen']['name'])) ? $_FILES['txtImagen']['name'
 
 $accion = (isset($_POST['accion'])) ? $_POST['accion'] : "";
 
+$host = "localhost";
+$bd = "sitio";
+$usuario = "root";
+$contrasenia = "";
+
+try {
+    $conexion = new PDO("mysql:host=$host;dbname=$bd", $usuario, $contrasenia);
+} catch (Exception $ex) {
+    echo $ex->getMessage();
+}
+
 switch ($accion) {
     case 'Agregar':
         // INSERT INTO `libros` (`id`, `nombre`, `imagen`) VALUES (NULL, 'Libro de PHP', 'imagen.jpg');
-        echo "Presionado botón agregar";
+        $sentenciaSQL = $conexion->prepare("INSERT INTO `libros` (`id`, `nombre`, `imagen`) VALUES (NULL, 'Libro de PHP', 'imagen.jpg');");
+        $sentenciaSQL->execute();
         break;
 
     case 'Modificar':
@@ -44,9 +56,9 @@ switch ($accion) {
                     <input type="file" class="form-control" name="txtImagen" id="txtImagen" placeholder="Nombre del libro">
                 </div>
                 <div class="btn-group" role="group" aria-label="">
-                    <button type="button" name="accion" value="Agregar" class="btn btn-success">Agregar</button>
-                    <button type="button" name="accion" value="Modificar" class="btn btn-warning">Modificar</button>
-                    <button type="button" name="accion" value="Cancelar" class="btn btn-info">Cancelar</button>
+                    <button type="submit" name="accion" value="Agregar" class="btn btn-success">Agregar</button>
+                    <button type="submit" name="accion" value="Modificar" class="btn btn-warning">Modificar</button>
+                    <button type="submit" name="accion" value="Cancelar" class="btn btn-info">Cancelar</button>
                 </div>
             </form>
         </div>
