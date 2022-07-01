@@ -1,5 +1,5 @@
-<?php 
-include("../template/cabecera.php"); 
+<?php
+include("../template/cabecera.php");
 
 $txtID = (isset($_POST['txtID'])) ? $_POST['txtID'] : "";
 $txtNombre = (isset($_POST['txtNombre'])) ? $_POST['txtNombre'] : "";
@@ -7,6 +7,20 @@ $txtNombre = (isset($_POST['txtNombre'])) ? $_POST['txtNombre'] : "";
 $txtImagen = (isset($_FILES['txtImagen']['name'])) ? $_FILES['txtImagen']['name'] : "";
 
 $accion = (isset($_POST['accion'])) ? $_POST['accion'] : "";
+
+switch ($accion) {
+    case 'Agregar':
+        echo "Presionado botón agregar";
+        break;
+
+    case 'Modificar':
+        echo "Presionado botón Modificar";
+        break;
+
+    case 'Cancelar':
+        echo "Presionado botón Cancelar";
+        break;
+}
 ?>
 
 <div class="col-md-5">
