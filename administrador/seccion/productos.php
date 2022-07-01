@@ -3,26 +3,17 @@ include("../template/cabecera.php");
 
 $txtID = (isset($_POST['txtID'])) ? $_POST['txtID'] : "";
 $txtNombre = (isset($_POST['txtNombre'])) ? $_POST['txtNombre'] : "";
-
 $txtImagen = (isset($_FILES['txtImagen']['name'])) ? $_FILES['txtImagen']['name'] : "";
-
 $accion = (isset($_POST['accion'])) ? $_POST['accion'] : "";
 
-$host = "localhost";
-$bd = "sitio";
-$usuario = "root";
-$contrasenia = "";
-
-try {
-    $conexion = new PDO("mysql:host=$host;dbname=$bd", $usuario, $contrasenia);
-} catch (Exception $ex) {
-    echo $ex->getMessage();
-}
+include("../config/bd.php");
 
 switch ($accion) {
     case 'Agregar':
         // INSERT INTO `libros` (`id`, `nombre`, `imagen`) VALUES (NULL, 'Libro de PHP', 'imagen.jpg');
-        $sentenciaSQL = $conexion->prepare("INSERT INTO `libros` (`id`, `nombre`, `imagen`) VALUES (NULL, 'Libro de PHP', 'imagen.jpg');");
+        $sentenciaSQL = $conexion->prepare("INSERT INTO `libros` (`nombre`, `imagen`) VALUES (:nombre, :imagen);");
+        $sentenciaSQL->bindParam(':nombre', $txtNombre);
+        $sentenciaSQL->bindParam(':imagen', $txtImagen);
         $sentenciaSQL->execute();
         break;
 
