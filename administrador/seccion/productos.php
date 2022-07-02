@@ -24,6 +24,8 @@ switch ($accion) {
 
         $sentenciaSQL->bindParam(':imagen', $nombreArchivo);
         $sentenciaSQL->execute();
+
+        header("Location: productos.php");
         break;
 
     case 'Modificar':
@@ -55,10 +57,12 @@ switch ($accion) {
             $sentenciaSQL->bindParam(':imagen', $nombreArchivo);
             $sentenciaSQL->execute();
         }
+
+        header("Location: productos.php");
         break;
 
     case 'Cancelar':
-        echo "Presionado botón Cancelar";
+        header("Location: productos.php");
         break;
 
     case 'Seleccionar':
@@ -87,6 +91,7 @@ switch ($accion) {
         $sentenciaSQL = $conexion->prepare("DELETE FROM libros WHERE id = :id");
         $sentenciaSQL->bindParam(':id', $txtID);
         $sentenciaSQL->execute();
+        header("Location: productos.php");
         break;
 }
 
@@ -104,11 +109,11 @@ $listaLibros = $sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
             <form method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="txtID">ID:</label>
-                    <input type="text" class="form-control" name="txtID" id="txtID" value="<?php echo $txtID; ?>" placeholder="ID">
+                    <input type="text" readonly class="form-control" name="txtID" id="txtID" value="<?php echo $txtID; ?>" placeholder="ID">
                 </div>
                 <div class="form-group">
                     <label for="txtNombre">Nombre:</label>
-                    <input type="text" class="form-control" name="txtNombre" id="txtNombre" value="<?php echo $txtNombre; ?>" placeholder="Nombre del libro">
+                    <input type="text" required class="form-control" name="txtNombre" id="txtNombre" value="<?php echo $txtNombre; ?>" placeholder="Nombre del libro">
                 </div>
                 <div class="form-group">
                     <label for="txtImagen">Imagen:</label>
@@ -123,9 +128,9 @@ $listaLibros = $sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
                     <input type="file" class="form-control" name="txtImagen" id="txtImagen" placeholder="Nombre del libro">
                 </div>
                 <div class="btn-group" role="group" aria-label="">
-                    <button type="submit" name="accion" value="Agregar" class="btn btn-success">Agregar</button>
-                    <button type="submit" name="accion" value="Modificar" class="btn btn-warning">Modificar</button>
-                    <button type="submit" name="accion" value="Cancelar" class="btn btn-info">Cancelar</button>
+                    <button type="submit" name="accion" <?php echo ($accion == "Seleccionar") ? "disabled" : ""; ?> value="Agregar" class="btn btn-success">Agregar</button>
+                    <button type="submit" name="accion" <?php echo ($accion != "Seleccionar") ? "disabled" : ""; ?> value="Modificar" class="btn btn-warning">Modificar</button>
+                    <button type="submit" name="accion" <?php echo ($accion != "Seleccionar") ? "disabled" : ""; ?> value="Cancelar" class="btn btn-info">Cancelar</button>
                 </div>
             </form>
         </div>
