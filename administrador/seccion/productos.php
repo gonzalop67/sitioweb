@@ -33,9 +33,26 @@ switch ($accion) {
         $sentenciaSQL->execute();
 
         if ($txtImagen != "") {
+            $fecha = new DateTime();
+            $nombreArchivo = ($txtImagen != "") ? $fecha->getTimestamp() . "_" . $_FILES["txtImagen"]["name"] : "imagen.jpg";
+            $tmpImagen = $_FILES["txtImagen"]["tmp_name"];
+
+            move_uploaded_file($tmpImagen, "../../img/" . $nombreArchivo);
+
+            $sentenciaSQL = $conexion->prepare("SELECT imagen FROM libros WHERE id = :id");
+            $sentenciaSQL->bindParam(':id', $txtID);
+            $sentenciaSQL->execute();
+            $libro = $sentenciaSQL->fetch(PDO::FETCH_LAZY);
+
+            if (isset($libro["imagen"]) && ($libro["imagen"] != "imagen.jpg")) {
+                if (file_exists("../../img/" . $libro["imagen"])) {
+                    unlink("../../img/" . $libro["imagen"]);
+                }
+            }
+
             $sentenciaSQL = $conexion->prepare("UPDATE libros SET imagen = :imagen WHERE id = :id");
             $sentenciaSQL->bindParam(':id', $txtID);
-            $sentenciaSQL->bindParam(':imagen', $txtImagen);
+            $sentenciaSQL->bindParam(':imagen', $nombreArchivo);
             $sentenciaSQL->execute();
         }
         break;
@@ -56,7 +73,7 @@ switch ($accion) {
         break;
 
     case 'Borrar':
-        $sentenciaSQL = $conexion->prepare("SELECT * FROM libros WHERE id = :id");
+        $sentenciaSQL = $conexion->prepare("SELECT imagen FROM libros WHERE id = :id");
         $sentenciaSQL->bindParam(':id', $txtID);
         $sentenciaSQL->execute();
         $libro = $sentenciaSQL->fetch(PDO::FETCH_LAZY);
