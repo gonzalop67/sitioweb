@@ -138,7 +138,7 @@ $listaLibros = $sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
 </div>
 
 <div class="col-md-7">
-    <table class="table table-bordered">
+    <table class="table table-bordered" id="tabla">
         <thead>
             <tr>
                 <th>ID</th>
@@ -171,5 +171,14 @@ $listaLibros = $sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
         </tbody>
     </table>
 </div>
+
+<script>
+    var tabla = document.querySelector("#tabla");
+
+    var dataTable = new DataTable(tabla, {
+        perPage: 3,
+        perPageSelect: [3, 6, 9, 12]
+    });
+</script>
 
 <?php include("../template/pie.php"); ?>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,6 +8,7 @@
     <title>Sitio Web</title>
     <link rel="stylesheet" href="./css/bootstrap.min.css">
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <ul class="nav navbar-nav">
@@ -28,4 +30,3 @@
     <div class="container">
         <br>
         <div class="row">
-
